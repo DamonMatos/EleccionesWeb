@@ -29,10 +29,9 @@ export class HeaderComponent implements OnInit {
       this._Perfil = this._UsuarioModel.perfil;
       this.imagenBase64 = this._UsuarioModel.fotoBase64;
 
-    }
-    
+    }    
   }
-
+  
   cerrarSesion(): void {
     localStorage.removeItem('Token');
     localStorage.removeItem('Menu');
