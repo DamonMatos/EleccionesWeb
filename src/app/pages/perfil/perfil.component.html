@@ -1,0 +1,89 @@
+
+<div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <p class="h5 mb-4">Registro de Usuario</p>
+
+                    <form (ngSubmit)="enviar()" enctype="multipart/form-data">
+                        <div class="row g-3 align-items-center">
+                            <div class="col-md-3">
+                                <label for="nombre" class="form-label">Nombre</label>
+                                <input  type="text" class="form-control"
+                                        placeholder="Nombre"
+                                        name="nomPer"
+                                        [(ngModel)]="_PersonalModel.nomPer">
+                            </div>
+
+                            <div class="col-md-3">
+                                <label for="Paterno" class="form-label">Apellido Paterno</label>
+                                <input type="text"
+                                        class="form-control"
+                                        placeholder="Apellido Paterno"
+                                        name="apePatPer"
+                                        [(ngModel)]="_PersonalModel.apePatPer">
+                            </div>
+
+                            <div class="col-md-3">
+                                <label for="materno" class="form-label">Apellido Materno</label>
+                                <input type="text"
+                                       class="form-control"
+                                       placeholder="Apellido Materno"
+                                       name="apeMatPer"
+                                       [(ngModel)]="_PersonalModel.apeMatPer">
+                            </div>
+
+                            <div class="col-md-3">
+                                <label for="fehNacPer" class="form-label">Fecha Nacimiento</label>
+                                <input  type="date" id="fehNacPer"
+                                        class="form-control"
+                                        placeholder="Fecha Nacimiento"
+                                        name="fehNacPer"
+                                        [(ngModel)]="_PersonalModel.fehNacPer">
+                            </div>
+                             
+                        </div>
+
+                        <div class="row g-3 align-items-center">
+                            <div class="col-md-3">
+                                <label for="tipDocPer" class="form-label">Tipo Documento</label>                                
+                                <select class="custom-select form-control"
+                                        id="tipDocPer"
+                                        name="tipDocPer"
+                                        [(ngModel)]="_PersonalModel.tipDocPer">
+                                    <option selected>Selecciona una opción</option>
+                                    <option value="DNI">L.E / DNI</option>
+                                    <option value="CARNET EXT">CARNET EXT.</option>
+                                    <option value="RUC">RUC</option>
+                                    <option value="PASAPORTE">PASAPORTE</option>
+                                    <option value="PARTIDA">P. NAC.</option>
+                                    <option value="OTROS">OTROS</option>
+                                </select> 
+                            </div>
+                            <div class="col-md-3">
+                                <label for="documento" class="form-label">Numero de Documento</label>
+                                <input type="text"
+                                       class="form-control"
+                                       placeholder="Numero de Documento"
+                                       name="numDocPer"
+                                       [(ngModel)]="_PersonalModel.numDocPer"> 
+                            </div>
+                            <div class="col-md-3">
+                                <label for="file" class="form-label">Adjuntar</label>
+                                 <input type="file"
+                                       class="form-control"
+                                       (change)="onArchivoSeleccionado($event)" accept="image/jpg*"> 
+
+                                       
+                            </div>
+
+                        </div>
+
+                        <div class="mt-4">
+                            <button type="submit"  class="btn btn-primary">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
