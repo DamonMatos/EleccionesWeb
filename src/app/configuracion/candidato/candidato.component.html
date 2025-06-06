@@ -1,41 +1,38 @@
-
 <div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">    
-                <h4>Candidatos</h4>                         
-            </div>   
-            <div class="container mt-5">
-                <h2>Formulario de Registro</h2>
-                <form action="#" method="POST">
-                    <div class="mb-3">
-                        <label for="nombre" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Introduce tu nombre" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="correo" class="form-label">Correo electrónico</label>
-                        <input type="email" class="form-control" id="correo" name="correo" placeholder="Introduce tu correo" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="telefono" class="form-label">Teléfono</label>
-                        <input type="tel" class="form-control" id="telefono" name="telefono" placeholder="Introduce tu teléfono" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="edad" class="form-label">Edad</label>
-                        <input type="number" class="form-control" id="edad" name="edad" placeholder="Introduce tu edad" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="contrasena" class="form-label">Contraseña</label>
-                        <input type="password" class="form-control" id="contrasena" name="contrasena" placeholder="Introduce una contraseña" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Enviar</button>
-                </form>
-            </div>        
-        </div>
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <p class="h5 mb-4">Lista de Candidatos</p>
+                        <button type="button" class="btn btn-success">Nuevo</button>
 
-       
-    </div>
+                    <form enctype="multipart/form-data">
+                        <div class="row g-3 align-items-center">
+                            <div class="col-md-3">
+                                <label for="nombre" class="form-label">Nombre Empresa</label>
+                                <input  type="text" class="form-control"
+                                        placeholder="Nombre de la empresa"
+                                        name="nomPer"
+                                        >
+                            </div>
+
+                            <div class="col-md-3">
+                                <label for="Paterno" class="form-label">RUC</label>
+                                <input type="text"
+                                        class="form-control"
+                                        placeholder="RUC de la Empresa"
+                                        name="apePatPer"
+                                        >
+                            </div>
+
+                           
+                                                         
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 </div>
+
 
 
 

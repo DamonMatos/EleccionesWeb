@@ -17,11 +17,16 @@ const routes : Routes = [
   //   path: 'dashboard',
   //   loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule)
   // },
-
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  { path: 'dashboard', loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule)},
+  { path: 'configuracion', loadChildren: () => import('./configuracion/configuracion.module').then(m => m.ConfiguracionModule)},
+  //{ path: '**', redirectTo: 'dashboard'},
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', component: NopagefoundComponent },
 
-]
+];
+
+
 
 @NgModule({
   imports: [

@@ -11,14 +11,14 @@ import { AuthGuard } from '../guards/auth.guard';
 
 const routes: Routes = [
     { 
-        path: 'dashboard', 
+        path: '', 
         component: PagesComponent,
         canActivate: [AuthGuard],
         children: [
-            { path: '', component: DashboardComponent, data:{ Title:' DashBoard'} },
-            { path: 'progressbar', component: ProgressbarComponent , data:{ Title:' ProgressBar'} },
-            { path: 'barra', component: BarraComponent, data:{ Title:' Grafico Barra'} },
-            { path: 'perfil', component: PerfilComponent , data:{ Title:'Perfiles'}} 
+            { path: '', component: DashboardComponent, data: { Title:' DashBoard'} },
+            { path: 'progressbar', component: ProgressbarComponent , data: { Title:' ProgressBar'} },
+            { path: 'barra', component: BarraComponent, data: { Title:' Grafico Barra'} },
+            { path: 'perfil', component: PerfilComponent , data: { Title:'Perfiles'}} 
         ]     
     },
     

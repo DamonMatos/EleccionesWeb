@@ -1,0 +1,131 @@
+<div class="row">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-body">
+                    <form enctype="multipart/form-data">
+                        <div class="row g-12 align-items-center">
+                            <div class="col-md-6">
+                                <label for="nombre" class="form-label">Nombre Empresa</label>
+                                <input  type="text" class="form-control"
+                                        placeholder="Nombre de la empresa"
+                                        name="nomPer"
+                                        >
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="Paterno" class="form-label">RUC</label>
+                                <input type="text"
+                                        class="form-control"
+                                        placeholder="RUC de la Empresa"
+                                        name="apePatPer"
+                                        >
+                            </div>                                                
+                        </div>
+
+                        <div class="row g-12 align-items-center">
+                             <div class="col-md-6">
+                                <label for="materno" class="form-label">Nombre de la Elección</label>
+                                <input type="text"
+                                       class="form-control"
+                                       placeholder="Nombre Eleccion"
+                                       name="apeMatPer"
+                                       >
+                            </div>
+                            <div class="col-md-6">
+                                <label for="fehNacPer" class="form-label">Color Base</label>
+                                <input  type="color" 
+                                        id="colorBase" 
+                                        name="colorBase"
+                                        class="form-control"
+                                        >
+                            </div>                                        
+                        </div>
+
+                        <div class="row g-12 align-items-center">                           
+                            <div class="col-md-6">
+                                <label for="fehNacPer" class="form-label">Fecha Inicio</label>
+                                <input  type="date" id="fehNacPer"
+                                        class="form-control"
+                                        placeholder="Fecha Inicio"
+                                        name="fehNacPer"
+                                        >
+                            </div>
+                            <div class="col-md-6">
+                                <label for="fehNacPer" class="form-label">Fecha Fin</label>
+                                <input  type="date" id="fehNacPer"
+                                        class="form-control"
+                                        placeholder="Fecha Fin"
+                                        name="fehNacPer"
+                                        >
+                            </div>
+                        </div>
+
+                        <div class="row g-12 align-items-center">
+                            <div class="col-md-6">
+                                <label for="file" class="form-label">Adjuntar Logo</label>
+                                 <input type="file"
+                                        class="form-control"
+                                        accept="image/jpg*">                                       
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="fehNacPer" class="form-label">Fecha Difusion</label>
+                                <input  type="date" id="fehNacPer"
+                                        class="form-control"
+                                        placeholder="Fecha Difusion"
+                                        name="fehNacPer"
+                                        >
+                            </div>
+                        </div>
+
+                         <div class="mt-4">
+                            <button type="submit"  class="btn btn-primary">Guardar</button>
+                        </div>
+
+                    </form>
+                </div>  
+            </div> 
+        </div>      
+        <div class="col-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row mt-4">
+                            <div class="col-12">
+                                <table class="table table-bordered align-middle">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th style="width: 120px;">Proceso</th>
+                                            <th style="width: 120px;">N° Candidatos</th>
+                                            <th style="width: 120px;">Votacion Obligatoria</th>
+                                            <th style="width: 120px;">Opciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <input type="text" class="form-control" placeholder="Nombre Proceso" >
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control" min="0" max="5" placeholder="Cantidad">
+                                            </td>
+                                            <td>
+                                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
+                                                    <label class="form-check-label" for="flexSwitchCheckChecked">Obligatorio</label>
+                                            </td>
+                                            <td class="text-center">
+                                                <button class="btn btn-success btn-sm"><i class="bi bi-plus-circle-fill"></i> Agregar</button>
+                                                <button class="btn btn-danger btn-sm" ><i class="bi bi-trash-fill"></i>Quitar</button>
+                                            </td>
+                                        </tr>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>    
+
+                          
+</div>
+    

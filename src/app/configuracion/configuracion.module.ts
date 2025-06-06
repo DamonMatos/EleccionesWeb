@@ -9,7 +9,8 @@ import { ElectorComponent } from './elector/elector.component';
 import { AjustesComponent } from './ajustes/ajustes.component';
 import { PlantillaComponent } from './plantilla/plantilla.component';
 import { ConfiguracionRoutingModule } from './configuracion.routing';
-
+import { ProcesoComponent } from './proceso/proceso.component';
+import { FormsModule } from '@angular/forms'; 
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { ConfiguracionRoutingModule } from './configuracion.routing';
     ElectorComponent,
     ConfiguracionComponent,
     AjustesComponent,
-    PlantillaComponent
+    PlantillaComponent,
+    ProcesoComponent
   ],
   exports: [
     CandidatoComponent,
@@ -28,7 +30,8 @@ import { ConfiguracionRoutingModule } from './configuracion.routing';
     CommonModule,
     SharedModule,
     RouterModule,
-    ConfiguracionRoutingModule
+    ConfiguracionRoutingModule,
+    FormsModule
   ]
 })
 export class ConfiguracionModule { }

@@ -6,11 +6,12 @@ import { ElectorComponent } from './elector/elector.component';
 import { ConfiguracionComponent } from './configuracion.component';
 import { PlantillaComponent } from './plantilla/plantilla.component';
 import { AuthGuard } from '../guards/auth.guard';
+import { ProcesoComponent } from './proceso/proceso.component';
 
 
 const routes: Routes = [
     { 
-        path: 'candidato', 
+        path: '', 
         component: ConfiguracionComponent,
         canActivate: [AuthGuard],
         children: [
@@ -18,6 +19,8 @@ const routes: Routes = [
             { path: 'elector', component: ElectorComponent },
             { path: 'ajuste', component: ElectorComponent },
             { path: 'plantilla', component: PlantillaComponent },
+            { path: 'candidato', component: CandidatoComponent },
+            { path: 'proceso', component: ProcesoComponent },
         ]       
     },
 ];
