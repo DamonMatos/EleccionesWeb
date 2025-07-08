@@ -1,0 +1,131 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="form-group row">
+                    <label class="col-xl-1 col-form-label">Elecciones:</label>
+                    <div class="col-xl-3">
+                        <select class="custom-select form-control" [(ngModel)]="eleccionSeleccionado" (change)="_OnEleccionChange()">
+                            <option [ngValue]="0">[Seleccione]</option>
+                            <option *ngFor="let x of _ListaEle" [ngValue]="x.clave">{{ x.valor }}</option>
+                        </select>
+
+                    </div>
+                    <label class="col-xl-1 col-form-label">Procesos:</label>
+                    <div class="col-xl-3">
+                        <select class="custom-select form-control" [(ngModel)]="procesoSeleccionada" [disabled]="!_ListaPro.length" (change)="_Get()">
+                            <option [ngValue]="0">[Seleccione]</option>
+                            <option *ngFor="let x of _ListaPro" [ngValue]="x.clave">{{ x.valor }}</option>
+                        </select>
+
+                    </div>
+                </div>
+                <nav ngbNav [(activeId)]="activeTab" #nav="ngbNav" class="nav-tabs">
+                    <ng-container ngbNavItem="tab1">
+                        <a ngbNavLink>Candidatos</a>
+                            <ng-template ngbNavContent>
+                                <div class="block-center mt-4">
+                                    <div class="col-xl-12">
+                                        <div class="card card-default">
+                                            <div class="card-body">
+                                                <div class="form-group row">
+                                                    <label class="col-xl-1 col-form-label">Nombres:</label>
+                                                    <div class="col-xl-3">
+                                                        <input class="form-control" type="text" name="nombre" [(ngModel)]="_Candidato.nombre" placeholder="Nombres Completos"/>
+                                                    </div>
+                                                    <label class="col-xl-1 col-form-label">Apellidos:</label>
+                                                    <div class="col-xl-3">
+                                                        <input class="form-control" type="text" name="apellidos" [(ngModel)]="_Candidato.apellidos" placeholder="Apellidos Completos"/>
+                                                    </div>
+                                                    <label class="col-xl-1 col-form-label">Tipo Doc:</label>
+                                                    <div class="col-xl-3">
+                                                        <select class="custom-select form-control" [(ngModel)]="_Candidato.tipoDocumento" name="tipoDocumento" [disabled]="deshabilitado">
+                                                            <option [ngValue]="0" selected>[Seleccione]</option>
+                                                            <option value="DNI">L.E / DNI</option>
+                                                            <option value="CARNET EXT">CARNET EXT.</option>
+                                                            <option value="RUC">RUC</option>
+                                                            <option value="PASAPORTE">PASAPORTE</option>
+                                                            <option value="PARTIDA">P. NAC.</option>
+                                                            <option value="OTROS">OTROS</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <label class="col-xl-1 col-form-label">Numero:</label>
+                                                    <div class="col-xl-3">
+                                                        <input class="form-control" type="text" name="numeroDocumento" [(ngModel)]="_Candidato.numeroDocumento" placeholder="Documento de Identidad" [disabled]="deshabilitado"/>
+                                                    </div>
+                                                    <label class="col-xl-1 col-form-label">Area/Cargo:</label>
+                                                    <div class="col-xl-3">
+                                                        <input class="form-control" type="text" name="area" [(ngModel)]="_Candidato.area" placeholder="Area"/>
+                                                    </div>
+                                                    <label class="col-xl-1 col-form-label">Localidad:</label>
+                                                    <div class="col-xl-3">
+                                                        <input class="form-control" type="text" name="localidad" [(ngModel)]="_Candidato.localidad" placeholder="Localidad"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+
+                                                    <label class="col-xl-1 col-form-label">Descripción:</label>
+                                                    <div class="col-xl-3">
+                                                        <textarea class="form-control" maxlength="100" name="textarea" rows="5" cols="80" [(ngModel)]="_Candidato.descripcion" placeholder="Describe al candidato."></textarea>
+                                                    </div>
+                                                    <label class="col-xl-1 col-form-label">Foto:</label>
+                                                    <div class="col-xl-3">
+                                                        <input class="form-control" type="file" (change)="_OnArchivoSeleccionado($event)" accept="image/png" [disabled]="deshabilitado"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <button type="button" (click)="_Guardar()" class="btn btn-info">Guardar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </ng-container>
+
+                        <ng-container ngbNavItem="tab2">
+                            <a ngbNavLink>Listado</a>
+                            <ng-template ngbNavContent>
+                                <div class="block-center mt-4">
+                                    <div class="col-xl-12">
+                                        <div class="card card-default">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-md-3 mb-4" *ngFor="let x of _ListCandidatos; let i = index">
+                                                        <div class="card mb-4 box-shadow">
+                                                            <img src="{{ x.urlFile }}" alt="" style="height: 225px; width: 100%; display: block;" class="card-img-top" >
+                                                            <div class="card-body">
+                                                                <p class="card-text">{{ x.nombreCompleto }}</p>
+                                                                <p class="card-text">{{ x.descripcion }}</p>
+                                                                <div class="d-flex justify-content-between align-items-center">
+                                                                    <div class="btn-group">
+                                                                        <button type="button" class="btn btn-sm btn-outline-secondary" (click)="activeTab= 'tab1'" (click)="_Editar(x)">Editar</button>
+                                                                        <button type="button" class="btn btn-sm btn-outline-secondary" (click)="_Eliminar(x)">Eliminar</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>                                                   
+                                                    </div>
+                                                </div> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </ng-container>
+                </nav>
+
+                <div [ngbNavOutlet]="nav" class="mt-2"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+

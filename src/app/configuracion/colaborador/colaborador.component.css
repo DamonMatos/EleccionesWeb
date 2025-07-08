@@ -1,0 +1,11 @@
+/* styles.css o app.component.css */
+.car {
+  display: inline-block;
+  animation: mover 1s ease-in-out infinite;
+}
+
+@keyframes mover {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(10px); }
+  100% { transform: translateX(0); }
+}

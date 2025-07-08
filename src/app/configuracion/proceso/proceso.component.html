@@ -1,0 +1,242 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">                       
+                <nav ngbNav [(activeId)]="activeTab" #nav="ngbNav" class="nav-tabs">                        
+                    <ng-container ngbNavItem="tab1">
+                        <a ngbNavLink>Nueva Elección</a>
+                        <ng-template ngbNavContent>
+                            <form #formEleccion="ngForm" (ngSubmit)="_Guardar()" novalidate>
+                        
+                                <div class="block-center mt-4">
+                                    <div class="col-xl-12">
+                                        <div class="card card-default">                     
+                                            <div class="card-body">
+                                                <div class="form-group row">
+                                                    <label class="col-xl-1 col-form-label">Empresa:</label>
+                                                    <div class="col-xl-7">                                                       
+                                                        <input type="text" class="form-control" disabled placeholder="Nombre de la empresa" [(ngModel)]="_NombreCliente" required name="nomPer">
+                                                    </div>
+
+                                                    <label class="col-xl-1 col-form-label">RUC:</label>
+                                                    <div class="col-xl-3">
+                                                        <input type="text" class="form-control" disabled placeholder="RUC de la Empresa" [(ngModel)]="_Ruc"  required name="ruc">
+                                                    </div>
+                                                </div> 
+                                
+                                                <div class="form-group row">
+                                                    <label class="col-xl-1 col-form-label">Elección:</label>
+                                                    <div class="col-xl-3">
+                                                        <!-- <input type="text" class="form-control" placeholder="Nombre Eleccion"  name="nombre" [(ngModel)]="_Elecciones.nombre" required>  -->
+                                                        <input type="text"
+                                                            class="form-control"
+                                                            placeholder="Nombre Eleccion"
+                                                            name="nombre"
+                                                            required
+                                                            minlength="3"
+                                                            [(ngModel)]="_Elecciones.nombre"
+                                                            #nombre="ngModel">
+                                                        <!-- Mensaje de error -->
+                                                        <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="text-danger mt-1">
+                                                            <small *ngIf="nombre.errors?.['required']">⚠️ El nombre es obligatorio.</small>
+                                                            <small *ngIf="nombre.errors?.['minlength']">⚠️ Mínimo 3 caracteres.</small>
+                                                        </div>
+                                                    </div> 
+                                                    
+                                                   
+
+                                                   
+
+
+                                                    <label class="col-xl-1 col-form-label">Color Base:</label>
+                                                    <div class="col-xl-3">
+                                                        <input  type="color" class="form-control" name="colorBase" [(ngModel)]="_Elecciones.colorBase" required>
+                                                    </div>
+
+                                                    <label class="col-xl-1 col-form-label">Logo</label>
+                                                    <div class="col-xl-3">
+                                                        <input type="file" class="form-control" (change)="_OnArchivoSeleccionado($event)" accept="image/jpg*">
+                                                    </div>   
+
+                                                </div>
+                                
+                                                <div class="form-group row">
+                                                    <label class="col-xl-1 col-form-label">F. Inicio:</label>
+                                                    <div class="col-xl-3">
+                                                        <input  type="date" class="form-control" placeholder="Fecha Inicio" name="fechaInicio" [(ngModel)]="_Elecciones.fechaInicio" required>
+                                                    </div>
+
+                                                    <label class="col-xl-1 col-form-label">F. Fin:</label>
+                                                    <div class="col-xl-3">
+                                                        <input  type="date" class="form-control" placeholder="Fecha Fin" name="fechaFin" [(ngModel)]="_Elecciones.fechaFin" required>
+                                                    </div>
+
+                                                    <label class="col-xl-1 col-form-label">F. Difusion:</label>
+                                                    <div class="col-xl-3">
+                                                        <input  type="date" disabled class="form-control" placeholder="Fecha Difusion" name="fechaDifusion" [(ngModel)]="_Elecciones.fechaDifusion">
+                                                    </div>   
+
+                                                </div>
+                                                    
+                                                <div class="form-group row">
+                                                    <table class="table align-middle mb-0">
+                                                        <thead>
+                                                            <tr>      
+                                                                <th>Estado</th>                                                     
+                                                                <th>Nombre Proceso</th>
+                                                                <th>Numero Candidatos</th>
+                                                                <th>Votacion</th>                                                           
+                                                                <th>Acciones</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr *ngFor="let fila of _ListarProceso; let i = index">   
+                                                                <td>                                                               
+                                                                    <span class="badge badge-success rounded-pill d-inline">Active</span> 
+                                                                </td>                                                        
+                                                                <td>
+                                                                    <input type="text" class="form-control"[(ngModel)]="fila.nombre" name="nombre" placeholder="Nombre del Proceso" >                                                                
+                                                                </td>
+                                                                <td>
+                                                                    <input type="number" class="form-control" [(ngModel)]="fila.numeroCandidatos" name="numeroCandidatos" min="0" max="6">
+                                                                </td>                                    
+                                                                <td>
+                                                                    <div class="form-check form-switch">
+                                                                        <input class="form-check-input" [(ngModel)]="fila.votacionObligatoria" type="checkbox" [id]="'votacionObligatoria' + i" checked>
+                                                                        <label class="form-check-label" [for]="'votacionObligatoria' + i">Obligatorio</label>
+                                                                    </div>                                                              
+                                                                </td>                                                          
+                                                                <td>
+                                                                    <div class="d-flex gap-2">
+                                                                        <button class="btn btn-success btn-sm" style="margin-right: 8px" (click)="_AgregarFila(i)">
+                                                                        <i class="bi bi-plus-circle me-1"></i> Agregar
+                                                                        </button>
+                                                                        <button class="btn btn-danger btn-sm" (click)="_QuitarFila(i)">
+                                                                        <i class="bi bi-x-circle me-1"></i> Quitar
+                                                                        </button>
+                                                                    </div>
+                                                                </td>
+                                                                
+                                                            </tr>                                                      
+                                                        </tbody>
+                                                    </table>                                                
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <!-- <button type="button" class="btn btn-info" (click)="_Guardar()">Guardar</button> -->
+                                                    <button type="submit" class="btn btn-info" [disabled]="formEleccion.invalid">Guardar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </ng-template>
+                    </ng-container>
+                            
+                    <ng-container ngbNavItem="tab2">
+                        <a ngbNavLink>Listado</a>
+                        <ng-template ngbNavContent>  
+                            <div class="block-center mt-4">
+                                <div class="col-xl-12">
+                                    <div class="card card-default">                     
+                                        <div class="card-body">
+                                            <div class="form-group row">
+                                                <table class="table align-middle mb-0">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Elección</th>
+                                                            <th>Fecha Registro</th>
+                                                            <th>Fecha Inicio</th>
+                                                            <th>Fecha Fin </th>
+                                                            <th>Fecha Difusion</th>
+                                                            <th>Confirmado</th>
+                                                            <th>Difusion</th>
+                                                            <th>Acción</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let p of _ListarElecciones; let i = index">                                                                                                                        
+                                                            <td>
+                                                                <div class="d-flex align-items-center" style="gap: 1rem;">
+                                                                    <img src="{{ p.urlLogo }}" alt="" style="width: 45px; height: 45px" class="rounded-pill" />
+                                                                    
+                                                                    <div>
+                                                                    <p class="fw-bold mb-1">{{ p.nombre }}</p>
+                                                                    <span class="badge rounded-pill d-inline"
+                                                                            [style.background-color]="p.colorBase"
+                                                                            [style.color]="_GetTextColor(p.colorBase)"
+                                                                            >
+                                                                            {{ p.colorBase }}
+                                                                    </span>
+
+                                                                    
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+
+                                                            <td>
+                                                                <p class="fw-normal mb-1">{{p.fechaRegistro | date: 'dd/MM/yyyy'}} </p>
+                                                            </td>
+                                                            <td>
+                                                                <p class="fw-normal mb-1">{{p.fechaInicio | date: 'dd/MM/yyyy'}} </p>
+                                                                    
+                                                            </td>
+                                                            <td>
+                                                                <p class="fw-normal mb-1">{{p.fechaFin | date: 'dd/MM/yyyy'}} </p>
+                                                            </td>
+                                                            <td>
+                                                                <p class="fw-normal mb-1">{{p.fechaDifusion | date: 'dd/MM/yyyy'}} </p>                                                               
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-check form-switch">
+                                                                    <input class="form-check-input" [(ngModel)]="p.planillaConfirmada" type="checkbox" [id]="'planillaConfirmada' + i" checked>
+                                                                    <label class="form-check-label" [for]="'planillaConfirmada' + i">Confirmado</label>
+                                                                </div>                                                             
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-check form-switch">
+                                                                    <input class="form-check-input" [(ngModel)]="p.difusionEnviada" type="checkbox" [id]="'difusionEnviada' + i" checked>
+                                                                    <label class="form-check-label" [for]="'difusionEnviada' + i">Enviado</label>
+                                                                </div>                                                              
+                                                            </td>
+                                                            <td>
+                                                                <div class="d-flex gap-2">
+                                                                    <button class="btn btn-link btn-sm btn-rounded" (click)="activeTab= 'tab1'" style="margin-right: 8px" (click)="_Editar(p)">
+                                                                      Editar
+                                                                    </button>                                                                   
+                                                                </div>
+                                                            </td>
+                                                        </tr>                                                                                                                                                                      
+                                                    </tbody>
+                                                </table>
+                                            <br>                                               
+                                                <nav aria-label="Page navigation">
+                                                    <ul class="pagination justify-content-center m-0">
+                                                        <li class="page-item" [class.disabled]="pageNumber === 1">
+                                                        <button class="page-link" (click)="_AnteriorPagina()">Anterior</button>
+                                                        </li>
+                                                        <li class="page-item active">
+                                                        <span class="page-link">{{ pageNumber }}</span>
+                                                        </li>
+                                                        <li class="page-item">
+                                                        <button class="page-link" (click)="_SiguientePagina()">Siguiente</button>
+                                                        </li>
+                                                    </ul>
+                                                </nav>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </ng-template>
+                    </ng-container>
+                </nav>   
+                                       
+                <div [ngbNavOutlet]="nav" class="mt-2"></div>                                             
+            </div>
+        </div>
+    </div>
+</div>
+    
