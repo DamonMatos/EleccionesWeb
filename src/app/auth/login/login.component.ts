@@ -35,9 +35,8 @@ export class LoginComponent implements OnInit {
     }
 
     verificarLogin() {  
-       this._LoginService.Login(new UsuarioLogin(this._usuario)).subscribe(response => {
-        if(response.status==1)
-        {
+       this._LoginService.Login(new UsuarioLogin(this._usuario)).subscribe((response: any) => {
+        if(response.status==1){
             this._usuarioModel = response.data;
             if(this._usuarioModel.apeMatPer == "")
             {

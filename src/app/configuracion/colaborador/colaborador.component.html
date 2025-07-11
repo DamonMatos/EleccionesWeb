@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="form-group row">
-                    
+
                     <label class="col-xl-1 col-form-label">Elecciones:</label>
                     <div class="col-xl-3">
                         <select class="custom-select form-control" [(ngModel)]="eleccionSeleccionado" (change)="_OnEleccionChange()">
@@ -19,23 +19,32 @@
                             <option *ngFor="let x of _ListaPro" [ngValue]="x.clave">{{ x.valor }}</option>
                         </select>
 
-                    </div>   
+                    </div>
                     <div class="col-xl-2">
-                        <button type="button" class="btn btn-info" [disabled]="deshabilitado" (click)="_Iniciar()">Iniciar Difusión</button> 
-                    </div> 
-                    
-                                                                                       
-                </div>                 
-                <nav ngbNav #nav="ngbNav" class="nav-tabs">                        
+                        <button type="button" class="btn btn-info" [disabled]="deshabilitado" (click)="_Iniciar()">Iniciar Difusión</button>
+                    </div>
+                </div>
+
+                <div *ngIf="mostrarMensajes && mensajes.length > 0" class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="mostrarMensajes = false">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>Observaciones:</strong>
+                    <ul class="mt-2 mb-0 ps-3">
+                        <li *ngFor="let mensaje of mensajes">{{ mensaje }}</li>
+                    </ul>
+                </div>
+
+                <nav ngbNav #nav="ngbNav" class="nav-tabs">
                     <ng-container ngbNavItem>
                         <a ngbNavLink>Colaboradores</a>
                             <ng-template ngbNavContent>
                                 <div class="block-center mt-4">
                                     <div class="col-xl-12">
-                                        <div class="card card-default">      
-                                            <div class="card-body"> 
+                                        <div class="card card-default">
+                                            <div class="card-body">
                                                 <div class="form-group row">
-                                                    
+
                                                     <button type="button" class="btn btn-primary" (click)="fileInput.click()" [disabled]="deshabilitado" style="margin-right: 4px">
                                                         <i class="bi bi-file-earmark-excel"></i> Cargar Excel</button>
                                                         <input #fileInput
@@ -43,16 +52,16 @@
                                                         accept=".xlsx, .xls"
                                                         style="display: none"
                                                         (change)="_OnFileChange($event)">
-                                                    <button type="button" class="btn btn-success" style="margin-right: 4px" (click)="_Guardar()" [disabled]="deshabilitado" >Guardar</button>                                                     
+                                                    <button type="button" class="btn btn-success" style="margin-right: 4px" (click)="_Guardar()" [disabled]="deshabilitado" >Guardar</button>
                                                 </div>
-                                                                                             
+
                                                 <div class="form-group row">
                                                     <table class="table align-middle mb-0">
                                                         <thead>
                                                             <tr>
                                                                 <th>Acciones</th>
                                                                         <th>Tipo</th>
-                                                                        <th>N°Documento</th>                                                                        
+                                                                        <th>N°Documento</th>
                                                                         <th>Nombre</th>
                                                                         <th>Apellido Paterno</th>
                                                                         <th>Apellido Materno</th>
@@ -61,7 +70,7 @@
                                                                         <th>Sede</th>
                                                                         <th>Envio</th>
                                                                     </tr>
-                                                                </thead>   
+                                                                </thead>
                                                                 <tbody *ngIf="_Listcolaboradores && _Listcolaboradores.length > 0">
                                                                     <tr *ngFor="let c of _Listcolaboradores; let i = index">
                                                                         <td style="width: 100px;">
@@ -73,7 +82,7 @@
                                                                             </button>
                                                                         </td>
                                                                         <td>
-                                                                            <div class="d-flex align-items-center">                                                                              
+                                                                            <div class="d-flex align-items-center">
                                                                                 <div class="ms-3">
                                                                                     <select class="custom-select form-control" [disabled]="deshabilitado" [(ngModel)]="c.tipoDocumento"  required name="tipoDocumento">
                                                                                         <option selected>[Seleccione]</option>
@@ -83,12 +92,12 @@
                                                                                         <option value="PASAPORTE">PASAPORTE</option>
                                                                                         <option value="PARTIDA">P. NAC.</option>
                                                                                         <option value="OTROS">OTROS</option>
-                                                                                    </select>                                
+                                                                                    </select>
                                                                                 </div>
                                                                             </div>
                                                                         </td>
-                                                                        <td> 
-                                                                            <input type="text" class="form-control" [(ngModel)]="c.numeroDocumento" placeholder="Num. Documento" [disabled]="deshabilitado" name="numeroDocumento"> 
+                                                                        <td>
+                                                                            <input type="text" class="form-control" [(ngModel)]="c.numeroDocumento" placeholder="Num. Documento" [disabled]="deshabilitado" name="numeroDocumento">
                                                                         </td>
                                                                         <td>
                                                                             <input type="text" class="form-control" [(ngModel)]="c.nombre" placeholder="Nombres" [disabled]="deshabilitado" name="nombre">
@@ -106,24 +115,24 @@
                                                                             <input type="text" class="form-control" [(ngModel)]="c.cargo" placeholder="Cargo" [disabled]="deshabilitado" name="cargo">
                                                                         </td>
                                                                         <td>
-                                                                            <input type="text" class="form-control" [(ngModel)]="c.sede" placeholder="Sede" [disabled]="deshabilitado" name="sede">                                                                           
+                                                                            <input type="text" class="form-control" [(ngModel)]="c.sede" placeholder="Sede" [disabled]="deshabilitado" name="sede">
                                                                         </td>
                                                                         <td>
                                                                             <span class="badge badge-success rounded-pill d-inline">Active</span>
-                                                                        </td>                                                                       
-                                                                    </tr>                                                                       
+                                                                        </td>
+                                                                    </tr>
                                                                 </tbody>
                                                             </table>
-                                                        </div>                                                
-                                                    </div>                                            
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                 </ng-template>
-                        </ng-container>                                               
-                </nav>   
+                        </ng-container>
+                </nav>
 
-                <div [ngbNavOutlet]="nav" class="mt-2"></div>                                            
+                <div [ngbNavOutlet]="nav" class="mt-2"></div>
             </div>
         </div>
     </div>

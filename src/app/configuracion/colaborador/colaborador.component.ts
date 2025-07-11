@@ -14,7 +14,7 @@ import { ColaboradoresService } from 'src/app/service/colaboradores.service';
 export class ColaboradorComponent {
   public extensionExportar:string = "";
   public enviando = false;
-  public mensaje = '';
+ // public mensaje = '';
   public _Listcolaboradores: Colaborador[] = [];
   public listaExcel: any[] = [];
 
@@ -170,9 +170,7 @@ export class ColaboradorComponent {
     };
 
     reader.readAsBinaryString(target.files[0]);
-}
-
-
+  }
 
   _CrearFila(): Colaborador {
     return {
@@ -218,8 +216,23 @@ export class ColaboradorComponent {
     }
   }
 
-  _Iniciar(){
-    console.log(this.eleccionSeleccionado);
+  mensajes: string[] = [];
+  mostrarMensajes: boolean = true;
+  async _Iniciar(){
+     const confirmado = await Utils.mensajeConfirmacion('¿Este SEGURO de iniciar Difusión?');
+
+    if (confirmado) {
+        this._Colaboradoresservice.difusion(this.eleccionSeleccionado).subscribe((response: any) => {
+          console.log(response);
+        if(response.status === 1){
+          Utils.mensajeInformativo("Aviso", response.msg);
+        }
+        else {
+          this.mensajes = response.data.map((n:any) => n.valor);  
+          this.mostrarMensajes = true;
+        }      
+     });
+    }
   }
 
 }

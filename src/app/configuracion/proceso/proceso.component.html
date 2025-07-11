@@ -6,8 +6,7 @@
                     <ng-container ngbNavItem="tab1">
                         <a ngbNavLink>Nueva Elección</a>
                         <ng-template ngbNavContent>
-                            <form #formEleccion="ngForm" (ngSubmit)="_Guardar()" novalidate>
-                        
+                            
                                 <div class="block-center mt-4">
                                     <div class="col-xl-12">
                                         <div class="card card-default">                     
@@ -27,30 +26,20 @@
                                                 <div class="form-group row">
                                                     <label class="col-xl-1 col-form-label">Elección:</label>
                                                     <div class="col-xl-3">
-                                                        <!-- <input type="text" class="form-control" placeholder="Nombre Eleccion"  name="nombre" [(ngModel)]="_Elecciones.nombre" required>  -->
-                                                        <input type="text"
-                                                            class="form-control"
-                                                            placeholder="Nombre Eleccion"
-                                                            name="nombre"
-                                                            required
-                                                            minlength="3"
-                                                            [(ngModel)]="_Elecciones.nombre"
-                                                            #nombre="ngModel">
-                                                        <!-- Mensaje de error -->
-                                                        <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="text-danger mt-1">
-                                                            <small *ngIf="nombre.errors?.['required']">⚠️ El nombre es obligatorio.</small>
-                                                            <small *ngIf="nombre.errors?.['minlength']">⚠️ Mínimo 3 caracteres.</small>
+                                                        <input type="text" class="form-control" placeholder="Nombre Eleccion" (blur)="validarNombre()" name="nombre" [(ngModel)]="_Elecciones.nombre" required>  
+                                                        <div *ngIf="errorNombre" class="text-danger mt-1">
+                                                            {{ errorNombre }}
                                                         </div>
                                                     </div> 
+
                                                     
-                                                   
-
-                                                   
-
-
+                                                    
                                                     <label class="col-xl-1 col-form-label">Color Base:</label>
                                                     <div class="col-xl-3">
-                                                        <input  type="color" class="form-control" name="colorBase" [(ngModel)]="_Elecciones.colorBase" required>
+                                                        <input type="color" class="form-control" name="colorBase" (change)="validarColor()" [(ngModel)]="_Elecciones.colorBase" required>
+                                                        <div *ngIf="errorColor" class="text-danger mt-1">
+                                                            {{ errorColor }}
+                                                        </div>
                                                     </div>
 
                                                     <label class="col-xl-1 col-form-label">Logo</label>
@@ -63,12 +52,17 @@
                                                 <div class="form-group row">
                                                     <label class="col-xl-1 col-form-label">F. Inicio:</label>
                                                     <div class="col-xl-3">
-                                                        <input  type="date" class="form-control" placeholder="Fecha Inicio" name="fechaInicio" [(ngModel)]="_Elecciones.fechaInicio" required>
-                                                    </div>
-
+                                                        <input type="date" class="form-control" placeholder="Fecha Inicio" name="fechaInicio" (change)="validarFechaInicio()" [(ngModel)]="_Elecciones.fechaInicio" required>
+                                                        <div *ngIf="errorFechaInicio" class="text-danger mt-1">
+                                                            {{ errorFechaInicio }}
+                                                        </div>
+                                                    </div> 
                                                     <label class="col-xl-1 col-form-label">F. Fin:</label>
                                                     <div class="col-xl-3">
-                                                        <input  type="date" class="form-control" placeholder="Fecha Fin" name="fechaFin" [(ngModel)]="_Elecciones.fechaFin" required>
+                                                        <input  type="date" class="form-control" placeholder="Fecha Fin" name="fechaFin" (change)="validarFechaFin()" [(ngModel)]="_Elecciones.fechaFin" required>
+                                                        <div *ngIf="errorFechaFin" class="text-danger mt-1">
+                                                            {{ errorFechaFin }}
+                                                        </div>
                                                     </div>
 
                                                     <label class="col-xl-1 col-form-label">F. Difusion:</label>
@@ -108,10 +102,10 @@
                                                                 </td>                                                          
                                                                 <td>
                                                                     <div class="d-flex gap-2">
-                                                                        <button class="btn btn-success btn-sm" style="margin-right: 8px" (click)="_AgregarFila(i)">
+                                                                        <button class="btn btn-success btn-sm" style="margin-right: 8px" (click)="_AgregarFila(i)" *ngIf="mostrarBotonGuardar">
                                                                         <i class="bi bi-plus-circle me-1"></i> Agregar
                                                                         </button>
-                                                                        <button class="btn btn-danger btn-sm" (click)="_QuitarFila(i)">
+                                                                        <button class="btn btn-danger btn-sm" (click)="_QuitarFila(i)" *ngIf="mostrarBotonGuardar">
                                                                         <i class="bi bi-x-circle me-1"></i> Quitar
                                                                         </button>
                                                                     </div>
@@ -123,14 +117,13 @@
                                                 </div>
 
                                                 <div class="form-group row">
-                                                    <!-- <button type="button" class="btn btn-info" (click)="_Guardar()">Guardar</button> -->
-                                                    <button type="submit" class="btn btn-info" [disabled]="formEleccion.invalid">Guardar</button>
+                                                    <button type="button" class="btn btn-info" (click)="_Guardar()" *ngIf="mostrarBotonGuardar" [disabled]="errorNombre || errorDni || errorFechaInicio || errorFechaFin || !_Elecciones.nombre || !_Elecciones.colorBase || !_Elecciones.fechaInicio || !_Elecciones.fechaFin">Guardar</button> 
+                                                   
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </form>
                         </ng-template>
                     </ng-container>
                             

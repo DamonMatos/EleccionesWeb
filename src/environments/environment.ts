@@ -20,6 +20,6 @@ export const environment = {
     candidato_get : 'Candidatos/Get',
 
     colaboradores_add : 'Colaboradores/Add',
-    colaboradores_get: 'Colaboradores/Get'
-
+    colaboradores_get: 'Colaboradores/Get',
+    iniciarDifusion_get: 'Colaboradores/Validar'
   };

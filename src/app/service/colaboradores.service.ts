@@ -31,21 +31,6 @@ export class ColaboradoresService {
         return this.http.get<Colaborador[]>(this.url + _get, { headers, params});    
     }
     
-    // add(Listcolaborador: Colaborador[]) : Observable<any> {
-    //     const _add = environment.candidato_add;
-    //     const rawToken = localStorage.getItem('Token');
-    //     const token = rawToken?.replace(/^"+|"+$/g, '');
-    
-    //     var header = new HttpHeaders({
-    //         'Authorization': `Bearer ${token}`
-    //     });
-    
-    //     const formData = new FormData();
-    //     formData.append('ListColaborador', JSON.stringify(Listcolaborador)); 
-    
-    //     return this.http.post(this.url + _add, formData,{headers: header});    
-    // }
-
     add(listaColaborador: Colaborador[]): Observable<any> {
         const _add = environment.colaboradores_add;
         const rawToken = localStorage.getItem('Token');
@@ -57,6 +42,20 @@ export class ColaboradoresService {
         });
 
         return this.http.post(this.url + _add, listaColaborador, { headers });
+    }
+
+      difusion(idEleccion: number): Observable<Colaborador[]>{
+        const _get = environment.iniciarDifusion_get;
+        const rawToken = localStorage.getItem('Token');
+        const token = rawToken?.replace(/^"+|"+$/g, '');
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        });
+            
+        const params = new HttpParams().set('IdEle', idEleccion);
+        
+        return this.http.get<Colaborador[]>(this.url + _get, { headers, params});    
     }
 
     

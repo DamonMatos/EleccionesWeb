@@ -67,10 +67,10 @@ export class CandidatoComponent {
   }
 
   _Listar_Desplegable<T>(Tipo: number, Id: number, callback: (data: T[]) => void): void {
-  this._Eleccionservice.getLista(Tipo, Id).subscribe((response: any) => {
-    if (response.status === 1) {
-      callback(response.data as T[]);
-    }
+      this._Eleccionservice.getLista(Tipo, Id).subscribe((response: any) => {
+      if (response.status === 1) {
+        callback(response.data as T[]);
+      }
   });
 }
 
@@ -81,10 +81,20 @@ export class CandidatoComponent {
           this._Listar_Desplegable<any>(this._Tipo, this.eleccionSeleccionado, (data) => {
             this._ListaPro = data;
           });
+        this._Habilitar();
     }
     else{
       this._ListaPro = [];
+      this._Desabilitar();
     }
+  }
+
+  desabilitarInput = false;
+  _Desabilitar(){
+    this.desabilitarInput = true;
+  }
+  _Habilitar(){
+    this.desabilitarInput = false;
   }
 
   _Get(){
@@ -93,6 +103,7 @@ export class CandidatoComponent {
     this._Candidatosservice.get(_idEleccion, _idproceso).subscribe((response: any) => {
       if(response.status = 1){
         this._ListCandidatos = response.data;
+        console.log(response.data);
       }
     });
   }
@@ -104,7 +115,7 @@ export class CandidatoComponent {
 
     this._Candidatosservice.add(this._Candidato, this._ArchivoSeleccionado).subscribe((response:any)  => {
       if(response.status = 1){
-        Utils.mensajeInformativo("Aviso","se registro correctamente el candidato");
+        Utils.mensajeInformativo("Aviso","Se registro correctamente el candidato");
         this._Get();
       }          
     });

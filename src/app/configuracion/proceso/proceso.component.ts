@@ -19,16 +19,16 @@ export class ProcesoComponent {
   public _IdCliente : number= 0;
   public _NombreCliente: string = ""; 
 
-  public activeTab: any = 'tab1'; // O el ID de la primera pestaña que deseas mostrar
-
+  public activeTab: any = 'tab1'; 
 
   public _ArchivoSeleccionado: File | null = null;
 
   public _ListarProceso : Proceso[] = [];
   public _ListarElecciones : Elecciones[] = []; 
 
-  public pageNumber = 1;
-  public pageSize = 10
+  public pageNumber = 1; 
+  public pageSize = 10;
+  public mostrarBotonGuardar = true;
 
   public _Elecciones: Elecciones = 
   { 
@@ -49,10 +49,53 @@ export class ProcesoComponent {
     ListProceso: this._ListarProceso
   };
 
+  //Validar
+  public errorNombre: string = '';
+  public errorDni: string = '';
+  public errorColor = '';
+  public errorFechaInicio: string = '';
+  public errorFechaFin: string = '';
+
   constructor(private _Eleccionservice : EleccionService) { }
 
   ngOnInit(): void {
     this._Listar();
+  }
+
+  validarNombre() {
+  if (!this._Elecciones.nombre) {
+    this.errorNombre = 'El nombre es obligatorio.';
+  }  
+  else {
+    this.errorNombre = '';
+  }
+}
+validarColor() {
+  if (!this._Elecciones.colorBase || this._Elecciones.colorBase === '#000000') {
+    this.errorColor = 'Debe seleccionar un color distinto.';
+  } else {
+    this.errorColor = '';
+  }
+}
+
+validarFechaInicio() {
+  if (!this._Elecciones.fechaInicio) {
+    this.errorFechaInicio = 'La fecha es obligatoria.';
+  } else {
+   // const hoy = new Date().toISOString().split('T')[0];
+    // if (this._Elecciones.fechaInicio > hoy) {
+    //   this.errorFecha = 'No puede seleccionar una fecha futura.';
+    // } else {
+      this.errorFechaInicio = '';
+    }
+  }
+
+  validarFechaFin() {
+  if (!this._Elecciones.fechaFin) {
+    this.errorFechaFin = 'La fecha es obligatoria.';
+  } else {
+      this.errorFechaFin = '';
+    }
   }
 
   _Listar(){
@@ -70,6 +113,7 @@ export class ProcesoComponent {
           this._Get();
         }
         localStorage.setItem("IdCliente", this._IdCliente.toString());
+
         this._Elecciones.idCliente = this._IdCliente; 
         this._Elecciones.ruc = this._Ruc;      
       });
@@ -85,17 +129,20 @@ export class ProcesoComponent {
         votacionObligatoria : true
     }];
   }
-
   _Get(){
     this._Eleccionservice.get(this._IdCliente, this.pageNumber, this.pageSize).subscribe((response: any)=>{
       if(response.status == 1){
         this._ListarElecciones = response.data;
-        console.log(this._ListarElecciones);
       }     
     });
   }
 
   _Editar(_Eleccion: Elecciones) {
+    this.mostrarBotonGuardar = true;
+    if (_Eleccion.fechaDifusion) {
+      this.mostrarBotonGuardar = false;
+    }
+
     this._Elecciones = { ..._Eleccion };
     this._Elecciones.tipo = 2;
     this._Elecciones.fechaInicio = this._ConvertirFecha(this._Elecciones.fechaInicio);
@@ -108,19 +155,17 @@ export class ProcesoComponent {
           this._Elecciones.ListProceso = this._ListarProceso;
         } 
     });
-
-    console.log('Editando:', this._Elecciones);
   }
 
   _Guardar(){
     this._Elecciones.ListProceso = this._ListarProceso;
     this._Eleccionservice.add(this._Elecciones, this._ArchivoSeleccionado).subscribe((response:any)  => {
       if(response.status=1){
-        Utils.mensajeInformativo("Aviso","Se Inicio con el proceso de Elección");
+        Utils.mensajeInformativo("Aviso","✅ Elección registrada correctamente.");
         this._Get();
       }
       else{
-        Utils.mensajeError("Atento! No se pudo realizar el proceso de Elección");
+        Utils.mensajeError("⚠️Atento! ❌ No se pudo realizar el proceso de Elección.");
       }      
     });
   }

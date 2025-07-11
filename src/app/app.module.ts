@@ -8,11 +8,13 @@ import { NopagefoundComponent } from './nopagefound/nopagefound/nopagefound.comp
 import { ConfiguracionModule } from './configuracion/configuracion.module';
 import { HttpClientModule } from '@angular/common/http'; 
 import { AuthModule } from './auth/auth.module';
+import { VotosComponent } from './votantes/votos/votos.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NopagefoundComponent    
+    NopagefoundComponent,
+    VotosComponent    
   ],
   imports: [
     BrowserModule,

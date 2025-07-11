@@ -31,15 +31,15 @@
                                                 <div class="form-group row">
                                                     <label class="col-xl-1 col-form-label">Nombres:</label>
                                                     <div class="col-xl-3">
-                                                        <input class="form-control" type="text" name="nombre" [(ngModel)]="_Candidato.nombre" placeholder="Nombres Completos"/>
+                                                        <input class="form-control" type="text" name="nombre" [(ngModel)]="_Candidato.nombre" placeholder="Nombres Completos" [disabled]="desabilitarInput"/>
                                                     </div>
                                                     <label class="col-xl-1 col-form-label">Apellidos:</label>
                                                     <div class="col-xl-3">
-                                                        <input class="form-control" type="text" name="apellidos" [(ngModel)]="_Candidato.apellidos" placeholder="Apellidos Completos"/>
+                                                        <input class="form-control" type="text" name="apellidos" [(ngModel)]="_Candidato.apellidos" placeholder="Apellidos Completos" [disabled]="desabilitarInput" />
                                                     </div>
                                                     <label class="col-xl-1 col-form-label">Tipo Doc:</label>
                                                     <div class="col-xl-3">
-                                                        <select class="custom-select form-control" [(ngModel)]="_Candidato.tipoDocumento" name="tipoDocumento" [disabled]="deshabilitado">
+                                                        <select class="custom-select form-control" [(ngModel)]="_Candidato.tipoDocumento" name="tipoDocumento" [disabled]="deshabilitado" [disabled]="desabilitarInput">
                                                             <option [ngValue]="0" selected>[Seleccione]</option>
                                                             <option value="DNI">L.E / DNI</option>
                                                             <option value="CARNET EXT">CARNET EXT.</option>
@@ -54,26 +54,26 @@
                                                 <div class="form-group row">
                                                     <label class="col-xl-1 col-form-label">Numero:</label>
                                                     <div class="col-xl-3">
-                                                        <input class="form-control" type="text" name="numeroDocumento" [(ngModel)]="_Candidato.numeroDocumento" placeholder="Documento de Identidad" [disabled]="deshabilitado"/>
+                                                        <input class="form-control" type="text" name="numeroDocumento" [(ngModel)]="_Candidato.numeroDocumento" placeholder="Documento de Identidad" [disabled]="deshabilitado" [disabled]="desabilitarInput"/>
                                                     </div>
                                                     <label class="col-xl-1 col-form-label">Area/Cargo:</label>
                                                     <div class="col-xl-3">
-                                                        <input class="form-control" type="text" name="area" [(ngModel)]="_Candidato.area" placeholder="Area"/>
+                                                        <input class="form-control" type="text" name="area" [(ngModel)]="_Candidato.area" placeholder="Area/Cargo" [disabled]="desabilitarInput"/>
                                                     </div>
                                                     <label class="col-xl-1 col-form-label">Localidad:</label>
                                                     <div class="col-xl-3">
-                                                        <input class="form-control" type="text" name="localidad" [(ngModel)]="_Candidato.localidad" placeholder="Localidad"/>
+                                                        <input class="form-control" type="text" name="localidad" [(ngModel)]="_Candidato.localidad" placeholder="Localidad" [disabled]="desabilitarInput"/>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
 
                                                     <label class="col-xl-1 col-form-label">Descripción:</label>
                                                     <div class="col-xl-3">
-                                                        <textarea class="form-control" maxlength="100" name="textarea" rows="5" cols="80" [(ngModel)]="_Candidato.descripcion" placeholder="Describe al candidato."></textarea>
+                                                        <textarea class="form-control" maxlength="100" name="textarea" rows="5" cols="80" [(ngModel)]="_Candidato.descripcion" placeholder="Describe al candidato." [disabled]="desabilitarInput"></textarea>
                                                     </div>
                                                     <label class="col-xl-1 col-form-label">Foto:</label>
                                                     <div class="col-xl-3">
-                                                        <input class="form-control" type="file" (change)="_OnArchivoSeleccionado($event)" accept="image/png" [disabled]="deshabilitado"/>
+                                                        <input class="form-control" type="file" (change)="_OnArchivoSeleccionado($event)" accept="image/png" [disabled]="deshabilitado" [disabled]="desabilitarInput"/>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
